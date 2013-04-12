@@ -62,7 +62,11 @@
 		   </list>
 		</property>
 		 -->
-		
+		<property name="authenticationMetaDataPopulators">
+                    <list>
+                      <bean class="org.jasig.cas.support.oauth.authentication.OAuthAuthenticationMetaDataPopulator" />
+                    </list>
+                </property>
 		<!--
 			| This is the List of CredentialToPrincipalResolvers that identify what Principal is trying to authenticate.
 			| The AuthenticationManagerImpl considers them in order, finding a CredentialToPrincipalResolver which 
@@ -101,6 +105,7 @@
 					+-->
 				<bean
 					class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />
+                                <bean class="org.jasig.cas.support.oauth.authentication.principal.OAuthCredentialsToPrincipalResolver" />
 			</list>
 		</property>
 
@@ -127,6 +132,19 @@
 					+-->
 				<bean 
 					class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" />
+                                <bean class="org.jasig.cas.support.oauth.authentication.handler.support.OAuthAuthenticationHandler">
+                                    <property name="configuration">
+                                        <bean class="org.jasig.cas.support.oauth.OAuthConfiguration">
+                                            <property name="providers">
+                                              <list>
+                                                <ref bean="facebook1" />
+                                              </list>
+                                            </property>
+                                            <property name="loginUrl" value="162.13.4.187"/>
+                                         </bean>
+
+                                    </property>
+                                </bean>
 			</list>
 		</property>
 	</bean>
@@ -190,6 +208,22 @@
                         <property name="evaluationOrder" value="0" />
                     </bean>
                     -->
+                    
+                    <bean class="org.jasig.cas.services.RegisteredServiceImpl">
+                        <property name="id" value="0" />
+                        <property name="name" value="HTTP" />
+                        <property name="description" value="Only Allows HTTP Urls" />
+                        <property name="serviceId" value="http://**" />
+                        <property name="evaluationOrder" value="10000001" />
+                        <property name="allowedAttributes">
+                         <list>
+                           <!-- facebook -->
+                           <value>name</value>
+                           <value>first_name</value>
+                           <value>middle_name</value>
+                         </list>
+                        </property>
+                    </bean>
                 </list>
             </property>
         </bean>
