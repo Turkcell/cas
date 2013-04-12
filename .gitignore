@@ -13,3 +13,4 @@ overlays/
 pom.xml.versionsBackup
 *.log
 bin
+datasource.properties
