@@ -49,8 +49,8 @@
           p:basename="messages"/>
 
     <bean
-            id="servicesManager"
-            class="org.jasig.cas.services.DefaultServicesManagerImpl">
+        id="servicesManager"
+        class="org.jasig.cas.services.DefaultServicesManagerImpl">
         <constructor-arg index="0" ref="serviceRegistryDao"/>
     </bean>
 
@@ -102,16 +102,23 @@
           class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
     <bean id="validationAnnotationBeanPostProcessor" class="org.jasig.cas.util.CustomBeanValidationPostProcessor"
-            p:afterInitialization="true" />
+          p:afterInitialization="true" />
 
     <!-- The scheduler bean wires up any triggers that define scheduled tasks -->
     <bean id="scheduler" class="org.jasig.cas.util.AutowiringSchedulerFactoryBean"/>
     
     <!-- Provider support for linkedin -->
-    <bean id="linkedin1" class="org.scribe.up.provider.impl.LinkedInProvider">
+    <bean id="linkedin" class="org.scribe.up.provider.impl.LinkedInProvider">
         <property name="key" value="${linkedin.apiKey}" />
         <property name="secret" value="${linkedin.apiSecret}" />
         <property name="callbackUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}" />
     </bean>
-            
+    <bean id="oauthConfig" class="org.jasig.cas.support.oauth.OAuthConfiguration">
+        <property name="providers">
+            <list>
+                <ref bean="linkedin" />
+            </list>
+        </property>
+        <property name="loginUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"/>
+    </bean>
 </beans>

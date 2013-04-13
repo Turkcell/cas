@@ -144,17 +144,7 @@
                                     <property name="sql" value="select password from admin_users where username = ?" />
                                 </bean>
                                 <bean class="org.jasig.cas.support.oauth.authentication.handler.support.OAuthAuthenticationHandler">
-                                    <property name="configuration">
-                                        <bean class="org.jasig.cas.support.oauth.OAuthConfiguration">
-                                            <property name="providers">
-                                              <list>
-                                                <ref bean="linkedin1" />
-                                              </list>
-                                            </property>
-                                            <property name="loginUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"/>
-                                         </bean>
-
-                                    </property>
+                                    <property name="configuration" ref="oauthConfig"/>
                                 </bean>
 			</list>
 		</property>

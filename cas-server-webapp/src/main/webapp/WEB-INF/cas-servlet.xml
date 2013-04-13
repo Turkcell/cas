@@ -276,15 +276,6 @@ ccc
   
   <bean id="oauthAction" class="org.jasig.cas.support.oauth.web.flow.OAuthAction">
     <property name="centralAuthenticationService" ref="centralAuthenticationService" />
-    <property name="configuration">
-        <bean id="oauthConfiguration" class="org.jasig.cas.support.oauth.OAuthConfiguration">
-            <property name="providers">
-              <list>
-                <ref bean="linkedin1" />
-              </list>
-            </property>
-            <property name="loginUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"/>
-        </bean>
-    </property>
+    <property name="configuration" ref="oauthConfig"/>
   </bean>
 </beans>
