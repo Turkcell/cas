@@ -108,15 +108,15 @@
     <bean id="scheduler" class="org.jasig.cas.util.AutowiringSchedulerFactoryBean"/>
     
     <!-- Provider support for linkedin -->
-    <bean id="linkedin" class="org.scribe.up.provider.impl.LinkedInProvider">
-        <property name="key" value="${linkedin.apiKey}" />
-        <property name="secret" value="${linkedin.apiSecret}" />
+    <bean id="google" class="org.scribe.up.provider.impl.Google2Provider">
+        <property name="key" value="${google.apiKey}" />
+        <property name="secret" value="${google.apiSecret}" />
         <property name="callbackUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}" />
     </bean>
     <bean id="oauthConfig" class="org.jasig.cas.support.oauth.OAuthConfiguration">
         <property name="providers">
             <list>
-                <ref bean="linkedin" />
+                <ref bean="google" />
             </list>
         </property>
         <property name="loginUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"/>
