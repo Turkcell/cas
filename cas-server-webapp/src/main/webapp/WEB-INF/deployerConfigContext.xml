@@ -148,10 +148,10 @@
                                         <bean class="org.jasig.cas.support.oauth.OAuthConfiguration">
                                             <property name="providers">
                                               <list>
-                                                <ref bean="facebook1" />
+                                                <ref bean="linkedin1" />
                                               </list>
                                             </property>
-                                            <property name="loginUrl" value="162.13.4.187"/>
+                                            <property name="loginUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"/>
                                          </bean>
 
                                     </property>
