@@ -210,7 +210,6 @@
                     <property name="evaluationOrder" value="10000001" />
                     <property name="allowedAttributes">
                         <list>
-                            <!-- facebook -->
                             <value>email</value>
                             <value>first_name</value>
                             <value>last_name</value>

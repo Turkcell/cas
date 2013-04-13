@@ -107,7 +107,7 @@
     <!-- The scheduler bean wires up any triggers that define scheduled tasks -->
     <bean id="scheduler" class="org.jasig.cas.util.AutowiringSchedulerFactoryBean"/>
     
-    <!-- Provider support for facebook -->
+    <!-- Provider support for linkedin -->
     <bean id="linkedin1" class="org.scribe.up.provider.impl.LinkedInProvider">
         <property name="key" value="${linkedin.apiKey}" />
         <property name="secret" value="${linkedin.apiSecret}" />
