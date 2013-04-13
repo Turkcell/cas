@@ -26,7 +26,7 @@
     <p>You are currently accessing CAS over a non-secure connection.  Single Sign On WILL NOT WORK.  In order to have single sign on work, you MUST log in over HTTPS.</p>
 </div>
 </c:if>
-<a href="${GoogleProviderUrl}">Authenticate with Google</a><br /> 
+<a href="${FacebookProviderUrl}">Authenticate with Facebook</a> <br />
 <br /> 
   <div class="box fl-panel" id="login">
 			<form:form method="post" id="fm1" cssClass="fm-v clearfix" commandName="${commandName}" htmlEscape="true">
