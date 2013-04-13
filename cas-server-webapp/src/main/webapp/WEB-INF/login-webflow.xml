@@ -28,7 +28,7 @@
     <on-start>
         <evaluate expression="initialFlowSetupAction" />
     </on-start>
-
+    
 	<decision-state id="ticketGrantingTicketExistsCheck">
 		<if test="flowScope.ticketGrantingTicketId != null" then="hasServiceCheck" else="gatewayRequestCheck" />
 	</decision-state>
@@ -45,6 +45,11 @@
 		<if test="requestParameters.renew != '' and requestParameters.renew != null" then="serviceAuthorizationCheck" else="generateServiceTicket" />
 	</decision-state>
 
+    <action-state id="oauthAction">
+        <evaluate expression="oauthAction" />
+        <transition on="success" to="sendTicketGrantingTicket" />
+        <transition on="error" to="ticketGrantingTicketExistsCheck" />
+    </action-state>
     <!-- Do a service authorization check early without the need to login first -->
     <action-state id="serviceAuthorizationCheck">
         <evaluate expression="serviceAuthorizationCheck"/>
@@ -177,12 +182,6 @@
     <action-state id="redirect">
         <evaluate expression="flowScope.service.getResponse(requestScope.serviceTicketId)" result-type="org.jasig.cas.authentication.principal.Response" result="requestScope.response" />
         <transition to="postRedirectDecision" />
-    </action-state>
-    
-    <action-state id="oauthAction">
-        <evaluate expression="oauthAction" />
-        <transition on="success" to="sendTicketGrantingTicket" />
-        <transition on="error" to="ticketGrantingTicketExistsCheck" />
     </action-state>
 
     <decision-state id="postRedirectDecision">
