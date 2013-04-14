@@ -34,7 +34,7 @@ public class CheckOauthCredentials {
     private JdbcTemplate jdbcTemplate;
 
     public final boolean checkForFirstLogin(final Credentials credentials) throws Exception {
-        logger.info("checkForFirstLogin");
+        logger.info("checkForFirstLogin credentials {}",credentials.getClass().getName());
         if (credentials instanceof OAuthCredentials) {
             logger.info("oauthLogin");
             OAuthCredentials oAuthCredentials = (OAuthCredentials) credentials;
