@@ -34,7 +34,9 @@ public class CheckOauthCredentials {
     private JdbcTemplate jdbcTemplate;
 
     public final boolean checkForFirstLogin(final Credentials credentials) throws Exception {
+        logger.info("checkForFirstLogin");
         if (credentials instanceof OAuthCredentials) {
+            logger.info("oauthLogin");
             OAuthCredentials oAuthCredentials = (OAuthCredentials) credentials;
             String oauthId = oAuthCredentials.getUserProfile().getTypedId();
             String pOauthId = jdbcTemplate.queryForObject("select oauth_id from admin_users where oauth_id=?", String.class, oauthId);
@@ -43,13 +45,13 @@ public class CheckOauthCredentials {
         return false;
     }
 
-    public final String checkEula(FlowScope flowScope, AcceptEula eula, Credentials credentials) {
+    public final String checkEula(AcceptEula eula, Credentials credentials) {
+        logger.info("inside checkEula");
         String returnValue = "rejected";
         if (eula.isAcceptEula()) {
             returnValue = "accepted";
         }
-        
-        flowScope.remove("acceptEula");
+        logger.info("returnValue {}",returnValue);
         return returnValue;
     }
 

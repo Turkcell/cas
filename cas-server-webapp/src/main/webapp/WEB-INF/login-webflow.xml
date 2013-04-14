@@ -122,7 +122,7 @@
 		<transition on="generated" to="viewLoginForm" />
 	</action-state>
         
-        <view-state id="viewEulaForm" view="eulaView" model="acceptEula">
+        <view-state id="viewEulaForm" view="eula" model="acceptEula">
             <var name="acceptEula" class="com.turkcell.cas.web.model.AcceptEula"/>
             <binder>
                 <binding property="acceptEula"/>
@@ -136,7 +136,7 @@
         </view-state>
         
         <action-state id="checkEula">
-            <evaluate expression="checkOauth.checkEula(flowScope,flowScope.acceptEula,flowScope.credentials)"/>
+            <evaluate expression="checkOauth.checkEula(flowScope.acceptEula,flowScope.credentials)"/>
             <transition on="accepted" to="serviceCheck"/>
             <transition on="rejected" to="viewLoginForm"/>
         </action-state>
@@ -181,7 +181,7 @@
 	
     <action-state id="sendTicketGrantingTicket">
         <evaluate expression="sendTicketGrantingTicketAction" />
-        <transition to="checkFirstOauth" />serviceCheck
+        <transition to="checkFirstOauth" />
     </action-state>
 
     <decision-state id="serviceCheck">
