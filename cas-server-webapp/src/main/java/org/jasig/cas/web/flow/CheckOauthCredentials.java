@@ -21,6 +21,7 @@ import org.jasig.cas.authentication.principal.Credentials;
 import org.jasig.cas.support.oauth.authentication.principal.OAuthCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.webflow.scope.FlowScope;
 
@@ -34,13 +35,18 @@ public class CheckOauthCredentials {
     private JdbcTemplate jdbcTemplate;
 
     public final boolean checkForFirstLogin(final Credentials credentials) throws Exception {
-        logger.info("checkForFirstLogin credentials {}",credentials.getClass().getName());
+        logger.info("checkForFirstLogin credentials {}", credentials.getClass().getName());
         if (credentials instanceof OAuthCredentials) {
             logger.info("oauthLogin");
             OAuthCredentials oAuthCredentials = (OAuthCredentials) credentials;
             String oauthId = oAuthCredentials.getUserProfile().getTypedId();
-            String pOauthId = jdbcTemplate.queryForObject("select oauth_id from admin_users where oauth_id=?", String.class, oauthId);
-            return pOauthId == null;
+            try {
+                jdbcTemplate.queryForObject("select oauth_id from admin_users where oauth_id=?", String.class, oauthId);
+                return false;
+            } catch (EmptyResultDataAccessException e) {
+                logger.info("initial oauth login");
+                return true;
+            }
         }
         return false;
     }
@@ -51,7 +57,7 @@ public class CheckOauthCredentials {
         if (eula.isAcceptEula()) {
             returnValue = "accepted";
         }
-        logger.info("returnValue {}",returnValue);
+        logger.info("returnValue {}", returnValue);
         return returnValue;
     }
 
