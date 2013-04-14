@@ -15,11 +15,13 @@
  */
 package com.turkcell.cas.web.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author capacman
  */
-public class AcceptEula {
+public class AcceptEula implements Serializable{
 
     private boolean acceptEula;
 
