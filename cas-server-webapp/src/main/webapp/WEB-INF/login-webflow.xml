@@ -49,7 +49,7 @@
 		<if test="requestParameters.renew != '' and requestParameters.renew != null" then="serviceAuthorizationCheck" else="generateServiceTicket" />
 	</decision-state>
         <decision-state id="checkFirstOauth">
-            <if test="checkOauth.checkForFirstLogin(flowScope.credentials)" then="viewEulaForm" else="sendTicketGrantingTicket"/>
+            <if test="checkOauth.checkForFirstLogin(flowScope.oAuthCredentials)" then="viewEulaForm" else="sendTicketGrantingTicket"/>
         </decision-state>
     <!-- Do a service authorization check early without the need to login first -->
     <action-state id="serviceAuthorizationCheck">
@@ -136,7 +136,7 @@
         </view-state>
         
         <action-state id="checkEula">
-            <evaluate expression="checkOauth.checkEula(flowScope.acceptEula,flowScope.credentials)"/>
+            <evaluate expression="checkOauth.checkEula(flowScope.acceptEula,flowScope.oAuthCredentials)"/>
             <transition on="accepted" to="sendTicketGrantingTicket"/>
             <transition on="rejected" to="viewLoginForm"/>
         </action-state>
