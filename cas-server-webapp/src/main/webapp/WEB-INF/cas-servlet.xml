@@ -30,9 +30,9 @@ ccc
 
     <!-- Theme Resolver -->
     <bean id="themeResolver" class="org.jasig.cas.services.web.ServiceThemeResolver"
-        p:defaultThemeName="${cas.themeResolver.defaultThemeName}"
-        p:argumentExtractors-ref="argumentExtractors"
-        p:servicesManager-ref="servicesManager">
+          p:defaultThemeName="${cas.themeResolver.defaultThemeName}"
+          p:argumentExtractors-ref="argumentExtractors"
+          p:servicesManager-ref="servicesManager">
         <property name="mobileBrowsers">
             <map>
                 <entry key=".*iPhone.*" value="iphone"/>
@@ -45,7 +45,7 @@ ccc
 
     <!-- View Resolver -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver"
-        p:order="0">
+          p:order="0">
         <property name="basenames">
             <list>
                 <value>${cas.viewResolver.basename}</value>
@@ -53,10 +53,14 @@ ccc
             </list>
         </property>
     </bean>
-
+    <bean id="interruptResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+          p:viewClass="org.springframework.web.servlet.view.JstlView"
+          p:prefix="/WEB-INF/view/jsp/default/ui/custom/"
+          p:suffix=".jsp"
+          p:order="2"/>
     <bean id="xmlViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver" 
-        p:order="1" 
-        p:location="/WEB-INF/view/views.xml" 
+          p:order="1" 
+          p:location="/WEB-INF/view/views.xml" 
     />
   
     <!-- Locale Resolver -->
@@ -65,10 +69,10 @@ ccc
     <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
 
     <bean id="urlBasedViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-        p:viewClass="org.springframework.web.servlet.view.InternalResourceView"
-        p:prefix="/WEB-INF/view/jsp/"
-        p:suffix=".jsp"
-        p:order="2"/>
+          p:viewClass="org.springframework.web.servlet.view.InternalResourceView"
+          p:prefix="/WEB-INF/view/jsp/"
+          p:suffix=".jsp"
+          p:order="2"/>
   
     <bean id="errorHandlerResolver" class="org.jasig.cas.web.FlowExecutionExceptionResolver"/>
 
@@ -123,7 +127,7 @@ ccc
         p:viewName="serviceLogoutView"/>
 
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping" p:flowRegistry-ref="flowRegistry"
-        p:order="2">
+          p:order="2">
         <property name="interceptors">
             <ref local="localeChangeInterceptor"/>
         </property>
@@ -131,8 +135,8 @@ ccc
 
 
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter"
-        p:flowExecutor-ref="flowExecutor"
-        p:flowUrlHandler-ref="flowUrlHandler"/>
+          p:flowExecutor-ref="flowExecutor"
+          p:flowUrlHandler-ref="flowUrlHandler"/>
 
     <bean id="flowUrlHandler" class="org.jasig.cas.web.flow.CasDefaultFlowUrlHandler"/>
 
@@ -151,10 +155,10 @@ ccc
     </webflow:flow-registry>
 
     <webflow:flow-builder-services id="builder" view-factory-creator="viewFactoryCreator"
-                                 expression-parser="expressionParser"/>
+                                   expression-parser="expressionParser"/>
 
     <bean id="terminateWebSessionListener" class="org.jasig.cas.web.flow.TerminateWebSessionListener"
-        p:serviceManagerUrl="${cas.securityContext.serviceProperties.service}" />
+          p:serviceManagerUrl="${cas.securityContext.serviceProperties.service}" />
 
     <bean id="expressionParser" class="org.springframework.webflow.expression.WebFlowOgnlExpressionParser"/>
 
@@ -162,70 +166,71 @@ ccc
         <property name="viewResolvers">
             <list>
                 <ref local="viewResolver"/>
+                <ref local="interruptResolver"/>
             </list>
         </property>
     </bean>
     <bean id="proxyValidateController" class="org.jasig.cas.web.ServiceValidateController"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:proxyHandler-ref="proxy20Handler"
-        p:argumentExtractor-ref="casArgumentExtractor"/>
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:proxyHandler-ref="proxy20Handler"
+          p:argumentExtractor-ref="casArgumentExtractor"/>
 
     <bean id="serviceValidateController" class="org.jasig.cas.web.ServiceValidateController"
-        p:validationSpecificationClass="org.jasig.cas.validation.Cas20WithoutProxyingValidationSpecification"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:proxyHandler-ref="proxy20Handler"
-        p:argumentExtractor-ref="casArgumentExtractor"/>
+          p:validationSpecificationClass="org.jasig.cas.validation.Cas20WithoutProxyingValidationSpecification"
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:proxyHandler-ref="proxy20Handler"
+          p:argumentExtractor-ref="casArgumentExtractor"/>
 
     <bean id="samlValidateController" class="org.jasig.cas.web.ServiceValidateController"
-        p:validationSpecificationClass="org.jasig.cas.validation.Cas20WithoutProxyingValidationSpecification"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:proxyHandler-ref="proxy20Handler"
-        p:argumentExtractor-ref="samlArgumentExtractor"
-        p:successView="casSamlServiceSuccessView"
-        p:failureView="casSamlServiceFailureView"/>
+          p:validationSpecificationClass="org.jasig.cas.validation.Cas20WithoutProxyingValidationSpecification"
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:proxyHandler-ref="proxy20Handler"
+          p:argumentExtractor-ref="samlArgumentExtractor"
+          p:successView="casSamlServiceSuccessView"
+          p:failureView="casSamlServiceFailureView"/>
 
     <bean id="legacyValidateController" class="org.jasig.cas.web.ServiceValidateController"
-        p:proxyHandler-ref="proxy10Handler"
-        p:successView="cas1ServiceSuccessView"
-        p:failureView="cas1ServiceFailureView"
-        p:validationSpecificationClass="org.jasig.cas.validation.Cas10ProtocolValidationSpecification"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:argumentExtractor-ref="casArgumentExtractor"/>
+          p:proxyHandler-ref="proxy10Handler"
+          p:successView="cas1ServiceSuccessView"
+          p:failureView="cas1ServiceFailureView"
+          p:validationSpecificationClass="org.jasig.cas.validation.Cas10ProtocolValidationSpecification"
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:argumentExtractor-ref="casArgumentExtractor"/>
 
     <bean id="proxyController" class="org.jasig.cas.web.ProxyController"
-        p:centralAuthenticationService-ref="centralAuthenticationService"/>
+          p:centralAuthenticationService-ref="centralAuthenticationService"/>
 
     <bean id="viewStatisticsController" class="org.jasig.cas.web.StatisticsController"
-        p:casTicketSuffix="${host.name}">
+          p:casTicketSuffix="${host.name}">
         <constructor-arg index="0" ref="ticketRegistry"/>
     </bean>
 
     <bean id="logoutController" class="org.jasig.cas.web.LogoutController"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:logoutView="casLogoutView"
-        p:warnCookieGenerator-ref="warnCookieGenerator"
-        p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator"
-        p:servicesManager-ref="servicesManager"
-        p:followServiceRedirects="${cas.logout.followServiceRedirects:false}"/>
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:logoutView="casLogoutView"
+          p:warnCookieGenerator-ref="warnCookieGenerator"
+          p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator"
+          p:servicesManager-ref="servicesManager"
+          p:followServiceRedirects="${cas.logout.followServiceRedirects:false}"/>
 
     <bean id="healthCheckController" class="org.jasig.cas.web.HealthCheckController"
-        p:healthCheckMonitor-ref="healthCheckMonitor"/>
+          p:healthCheckMonitor-ref="healthCheckMonitor"/>
 
     <bean id="initialFlowSetupAction" class="org.jasig.cas.web.flow.InitialFlowSetupAction"
-        p:argumentExtractors-ref="argumentExtractors"
-        p:warnCookieGenerator-ref="warnCookieGenerator"
-        p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator"/>
+          p:argumentExtractors-ref="argumentExtractors"
+          p:warnCookieGenerator-ref="warnCookieGenerator"
+          p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator"/>
 
     <bean id="authenticationViaFormAction" class="org.jasig.cas.web.flow.AuthenticationViaFormAction"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:warnCookieGenerator-ref="warnCookieGenerator"/>
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:warnCookieGenerator-ref="warnCookieGenerator"/>
 
     <bean id="generateServiceTicketAction" class="org.jasig.cas.web.flow.GenerateServiceTicketAction"
-        p:centralAuthenticationService-ref="centralAuthenticationService"/>
+          p:centralAuthenticationService-ref="centralAuthenticationService"/>
 
     <bean id="sendTicketGrantingTicketAction" class="org.jasig.cas.web.flow.SendTicketGrantingTicketAction"
-        p:centralAuthenticationService-ref="centralAuthenticationService"
-        p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator"/>
+          p:centralAuthenticationService-ref="centralAuthenticationService"
+          p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator"/>
 
     <bean id="gatewayServicesManagementCheck" class="org.jasig.cas.web.flow.GatewayServicesManagementCheck">
         <constructor-arg index="0" ref="servicesManager"/>
@@ -236,36 +241,36 @@ ccc
     </bean>
 
     <bean id="generateLoginTicketAction" class="org.jasig.cas.web.flow.GenerateLoginTicketAction"
-        p:ticketIdGenerator-ref="loginTicketUniqueIdGenerator"/>
+          p:ticketIdGenerator-ref="loginTicketUniqueIdGenerator"/>
 
     <bean id="addRegisteredServiceSimpleFormController"
-        class="org.jasig.cas.services.web.RegisteredServiceSimpleFormController"
-        p:formView="addServiceView"
-        p:successView="addServiceView"
-        p:commandName="registeredService"
-        p:validator-ref="registeredServiceValidator"
-        p:sessionForm="true">
+          class="org.jasig.cas.services.web.RegisteredServiceSimpleFormController"
+          p:formView="addServiceView"
+          p:successView="addServiceView"
+          p:commandName="registeredService"
+          p:validator-ref="registeredServiceValidator"
+          p:sessionForm="true">
         <constructor-arg index="0" ref="servicesManager"/>
         <constructor-arg index="1" ref="attributeRepository"/>
     </bean>
 
     <bean id="editRegisteredServiceSimpleFormController"
-        class="org.jasig.cas.services.web.RegisteredServiceSimpleFormController"
-        p:formView="editServiceView"
-        p:successView="editServiceView"
-        p:commandName="registeredService"
-        p:validator-ref="registeredServiceValidator"
-        p:sessionForm="false">
+          class="org.jasig.cas.services.web.RegisteredServiceSimpleFormController"
+          p:formView="editServiceView"
+          p:successView="editServiceView"
+          p:commandName="registeredService"
+          p:validator-ref="registeredServiceValidator"
+          p:sessionForm="false">
         <constructor-arg index="0" ref="servicesManager"/>
         <constructor-arg index="1" ref="attributeRepository"/>
     </bean>
 
     <bean id="registeredServiceValidator" class="org.jasig.cas.services.web.support.RegisteredServiceValidator"
-        p:servicesManager-ref="servicesManager" 
-        p:personAttributeDao-ref="attributeRepository" />
+          p:servicesManager-ref="servicesManager" 
+          p:personAttributeDao-ref="attributeRepository" />
 
     <bean id="manageRegisteredServicesMultiActionController"
-        class="org.jasig.cas.services.web.ManageRegisteredServicesMultiActionController">
+          class="org.jasig.cas.services.web.ManageRegisteredServicesMultiActionController">
         <constructor-arg index="0" ref="servicesManager"/>
         <constructor-arg index="1" value="${cas.securityContext.serviceProperties.service}"/>
     </bean>
@@ -273,7 +278,7 @@ ccc
     <bean id="messageInterpolator" class="org.jasig.cas.util.SpringAwareMessageMessageInterpolator"/>
 
     <bean id="credentialsValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
-        p:messageInterpolator-ref="messageInterpolator"/>
+          p:messageInterpolator-ref="messageInterpolator"/>
   
     <bean id="oauthAction" class="org.jasig.cas.support.oauth.web.flow.OAuthAction">
         <property name="centralAuthenticationService" ref="centralAuthenticationService" />
@@ -281,5 +286,8 @@ ccc
     </bean>
     <bean id="oauth10loginController" class="org.jasig.cas.support.oauth.web.OAuth10LoginController">
         <property name="configuration" ref="oauthConfig" />
+    </bean>
+    <bean id="checkOauth" class="org.jasig.cas.web.flow.CheckOauthCredentials">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 </beans>

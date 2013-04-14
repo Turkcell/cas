@@ -15,13 +15,14 @@
  */
 package org.jasig.cas.web.flow;
 
+import com.turkcell.cas.web.model.AcceptEula;
 import javax.sql.DataSource;
 import org.jasig.cas.authentication.principal.Credentials;
 import org.jasig.cas.support.oauth.authentication.principal.OAuthCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.webflow.execution.RequestContext;
+import org.springframework.webflow.scope.FlowScope;
 
 /**
  *
@@ -32,7 +33,7 @@ public class CheckOauthCredentials {
     private static final Logger logger = LoggerFactory.getLogger(CheckOauthCredentials.class);
     private JdbcTemplate jdbcTemplate;
 
-    public final boolean checkForFirstLogin(final RequestContext context, final Credentials credentials) throws Exception {
+    public final boolean checkForFirstLogin(final Credentials credentials) throws Exception {
         if (credentials instanceof OAuthCredentials) {
             OAuthCredentials oAuthCredentials = (OAuthCredentials) credentials;
             String oauthId = oAuthCredentials.getUserProfile().getTypedId();
@@ -40,6 +41,16 @@ public class CheckOauthCredentials {
             return pOauthId == null;
         }
         return false;
+    }
+
+    public final String checkEula(FlowScope flowScope, AcceptEula eula, Credentials credentials) {
+        String returnValue = "rejected";
+        if (eula.isAcceptEula()) {
+            returnValue = "accepted";
+        }
+        
+        flowScope.remove("acceptEula");
+        return returnValue;
     }
 
     public void setDataSource(DataSource dataSource) {
