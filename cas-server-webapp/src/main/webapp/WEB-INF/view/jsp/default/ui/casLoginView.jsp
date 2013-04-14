@@ -28,6 +28,8 @@
 </c:if>
 <a href="${FacebookProviderUrl}">Authenticate with Facebook</a> <br />
 <br /> 
+<a href="${LinkedInProviderUrl}">Authenticate with LinkedIn</a><br /> 
+<br/>
   <div class="box fl-panel" id="login">
 			<form:form method="post" id="fm1" cssClass="fm-v clearfix" commandName="${commandName}" htmlEscape="true">
                   <form:errors path="*" id="msg" cssClass="errors" element="div" />

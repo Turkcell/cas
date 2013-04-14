@@ -113,10 +113,16 @@
         <property name="secret" value="${facebook.apiSecret}" />
         <property name="callbackUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}" />
     </bean>
+    <bean id="linkedin" class="com.turkcell.cas.oauth.client.LinkedInProvider">
+        <property name="key" value="${linkedin.apiKey}" />
+        <property name="secret" value="${linkedin.apiSecret}" />
+        <property name="callbackUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}" />
+    </bean>
     <bean id="oauthConfig" class="org.jasig.cas.support.oauth.OAuthConfiguration">
         <property name="providers">
             <list>
                 <ref bean="facebook" />
+                <ref bean="linkedin"/>
             </list>
         </property>
         <property name="loginUrl" value="${cas.securityContext.casProcessingFilterEntryPoint.loginUrl}"/>
