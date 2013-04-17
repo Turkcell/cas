@@ -17,6 +17,8 @@ package com.turkcell.cas.oauth.client;
 
 import org.apache.commons.lang3.StringUtils;
 import org.scribe.up.profile.AttributesDefinitions;
+import org.scribe.up.profile.converter.Converters;
+import org.scribe.up.profile.converter.StringConverter;
 import org.scribe.up.profile.linkedin.LinkedInAttributesDefinition;
 import org.scribe.up.profile.linkedin.LinkedInProfile;
 
@@ -26,10 +28,22 @@ import org.scribe.up.profile.linkedin.LinkedInProfile;
  */
 public class LinkedInProvider extends org.scribe.up.provider.impl.LinkedInProvider {
 
+    private static class LinkendInAttributes extends LinkedInAttributesDefinition {
+
+        public LinkendInAttributes() {
+            addAttribute("email-address", Converters.stringConverter, true);
+        }
+    }
+    private static LinkendInAttributes attributes = new LinkendInAttributes();
+
+    public LinkedInProvider() {
+        AttributesDefinitions.linkedinDefinition.getPrincipalAttributes().add(key);
+    }
+
     @Override
     protected LinkedInProfile extractUserProfile(final String body) {
         final LinkedInProfile profile = new LinkedInProfile();
-        for (final String attribute : AttributesDefinitions.linkedinDefinition.getAllAttributes()) {
+        for (final String attribute : attributes.getAllAttributes()) {
             final String value = StringUtils.substringBetween(body, "<" + attribute + ">", "</" + attribute + ">");
             profile.addAttribute(attribute, value);
             if (LinkedInAttributesDefinition.URL.equals(attribute)) {

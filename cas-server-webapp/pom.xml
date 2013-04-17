@@ -213,6 +213,11 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.core.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -249,6 +254,16 @@
                 <configuration>
                     <messagesDirectory>${basedir}/src/main/webapp/WEB-INF/classes/</messagesDirectory>
                     <mainMessagesFile>messages_en.properties</mainMessagesFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.0.RC2</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>/cas</contextPath>
+                    </webApp>
                 </configuration>
             </plugin>
         </plugins>

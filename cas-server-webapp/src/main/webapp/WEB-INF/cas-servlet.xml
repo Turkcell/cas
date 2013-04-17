@@ -99,6 +99,7 @@ ccc
                 <prop key="/403.html">passThroughController</prop>
                 <prop key="/status">healthCheckController</prop>
                 <prop key="/oauth10login">oauth10loginController</prop>
+                <prop key="/signup">signupController</prop>
             </props>
         </property>
         <property
@@ -289,5 +290,14 @@ ccc
     </bean>
     <bean id="checkOauth" class="org.jasig.cas.web.flow.CheckOauthCredentials">
         <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="signupController" class="com.turkcellteknoloji.signupproject.HomeController">
+        <property name="validator">
+            <bean class="com.turkcellteknoloji.signupproject.AdminUserValidator"/>
+        </property>
+        <property name="formView" value="signup"/>
+        <property name="userDao" ref="adminUserDao"/>
+        <property name="successView" value="redirect:/cas/login"/>
+        <property name="userGridHost" value="${usergrid.host}"/>
     </bean>
 </beans>
