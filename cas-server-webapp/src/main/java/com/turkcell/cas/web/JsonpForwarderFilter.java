@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jasig.cas.web;
+package com.turkcell.cas.web;
 
 /**
  *
@@ -50,25 +50,24 @@ public class JsonpForwarderFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         String callback = req.getParameter("callback");
         String timeValue = req.getParameter("_");
-        System.out.println("callback " + callback + " timeValue " + timeValue);
+        LOGGER.debug("callback {} timevalue {}", callback, timeValue);
         if (callback != null) {
             MyWrapper wrappedResponse = new MyWrapper(res);
             chain.doFilter(request, wrappedResponse);
             String locationValue = wrappedResponse.getLocationValue();
             if (locationValue != null) {
-                System.out.println("location value found " + locationValue);
+                LOGGER.debug("location value {} ", locationValue);
+                String newLocation = null;
                 if (locationValue.contains("?ticket=")) {
-                    System.out.println("location value contains ticket");
-                    String newLocation = locationValue + "&callback="
+                    LOGGER.debug("location value contains ticket");
+                    newLocation = locationValue + "&callback="
                             + callback + "&_=" + timeValue;
-                    System.out.println("newLocationValue " + newLocation);
-                    res.sendRedirect(newLocation);
                 } else {
-                    String newLocation = locationValue + "?callback="
+                    newLocation = locationValue + "?callback="
                             + callback + "&_=" + timeValue;
-                    System.out.println("newLocationValue " + newLocation);
-                    res.sendRedirect(newLocation);
                 }
+                LOGGER.debug("newLocationValue {}", newLocation);
+                res.sendRedirect(newLocation);
             }
         } else {
             chain.doFilter(request, response);
