@@ -64,11 +64,19 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter>
-        <filter-name>jsonp-filter</filter-name>
-        <filter-class>org.jasig.cas.web.JsonpForwarderFilter</filter-class>
+        <filter-name>cors-filter</filter-name>
+        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowOrigin</param-name>
+            <param-value>http://localhost:8080</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.supportedMethods</param-name>
+            <param-value>GET</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>jsonp-filter</filter-name>
+        <filter-name>cors-filter</filter-name>
         <url-pattern>/login</url-pattern>
     </filter-mapping>
 
