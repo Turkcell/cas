@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import com.turkcellteknoloji.signupproject.repository.AdminUser;
 import com.turkcellteknoloji.signupproject.repository.AdminUserDAO;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -26,6 +29,12 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 @Controller
 public class HomeController extends SimpleFormController {
 
+    @Override
+    protected Map referenceData(HttpServletRequest request) throws Exception {
+        Map<String, Object> map = new HashMap();
+        map.put("signup", true);
+        return map;
+    }
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Override
