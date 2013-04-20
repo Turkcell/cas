@@ -137,8 +137,7 @@
 					| local authentication strategy.  You might accomplish this by coding a new such handler and declaring
 					| edu.someschool.its.cas.MySpecialHandler here, or you might use one of the handlers provided in the adaptors modules.
 					+-->
-				<bean 
-					class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" />
+				
                                         <bean class="com.turkcell.cas.authentication.handler.JpaUsernamePasswordAuthenticationHandler">
                                             <property name="dao" ref="adminUserDao"/>
                                         </bean>
