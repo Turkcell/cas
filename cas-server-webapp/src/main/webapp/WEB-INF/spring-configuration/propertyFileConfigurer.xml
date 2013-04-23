@@ -30,6 +30,12 @@
 		can be moved between tiers without modification.
 	</description>
        
-	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		p:location="/WEB-INF/cas.properties" />
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="locations">
+                <list>
+                    <value>/WEB-INF/cas.properties</value>
+                    <value>file:${casExternalConfiguration}</value>
+                </list>
+            </property>
+        </bean>
 </beans>

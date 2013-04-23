@@ -34,8 +34,5 @@
     </persistence-unit>
     <persistence-unit name="UserPersistence" transaction-type="RESOURCE_LOCAL">
         <class>com.turkcellteknoloji.signupproject.repository.AdminUser</class>
-        <properties>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-        </properties>
     </persistence-unit>
 </persistence>

@@ -49,13 +49,9 @@
 		| AuthenticationManager here in the userConfigContext.xml so that you can see the things you will
 		| need to change in context.
 		+-->
-            <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-                <property name="password" value="${cas.jdbc.password}"/>
-                <property name="username" value="${cas.jdbc.username}"/>
-                
-                <property name="driverClassName" value="${cas.jdbc.driver}"/>
-                <property name="url" value="${cas.jdbc.url}"/>
-            </bean>
+<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="${cas.dataSource.jndi}"/>
+</bean>
 	<bean id="authenticationManager"
 		class="org.jasig.cas.authentication.AuthenticationManagerImpl">
 		
