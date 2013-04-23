@@ -50,7 +50,7 @@
 		| need to change in context.
 		+-->
 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName" value="${cas.dataSource.jndi}"/>
+    <property name="jndiName" value="java:comp/env/jdbc/casDataSource"/>
 </bean>
 	<bean id="authenticationManager"
 		class="org.jasig.cas.authentication.AuthenticationManagerImpl">
