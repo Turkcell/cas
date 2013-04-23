@@ -223,8 +223,9 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
+                <artifactId>maven-war-plugin</artifactId>                
                 <configuration>
+                    <containerConfigXML>src/main/resources/META-INF/context.xml</containerConfigXML> 
                     <warName>cas</warName>
                     <webResources>
                         <resource>
