@@ -32,6 +32,12 @@
             /WEB-INF/deployerConfigContext.xml
         </param-value>
     </context-param>
+    <resource-ref>
+        <description>cas mysql datasource</description>
+        <res-ref-name>jdbc/casDataSource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 
     <filter>
         <filter-name>CAS Client Info Logging Filter</filter-name>
