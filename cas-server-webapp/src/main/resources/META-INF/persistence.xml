@@ -35,7 +35,7 @@
     <persistence-unit name="UserPersistence" transaction-type="RESOURCE_LOCAL">
         <class>com.turkcellteknoloji.signupproject.repository.AdminUser</class>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect">
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"></property>
         </properties>
     </persistence-unit>
 </persistence>
