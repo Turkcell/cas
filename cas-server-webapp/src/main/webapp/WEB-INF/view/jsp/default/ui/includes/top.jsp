@@ -69,8 +69,8 @@
 
             <nav id="page-navigation" class="primary-navigation group" role="navigation">
                 <ul class="nav group">
-                    <li class="first <c:out value='${signup ? "" : "active"}'/>"><a href="#" class="active">Giriş Yap</a></li>
-                    <li class="last <c:out value='${signup ? "active" : ""}'/>"><a href="#">Kayıt Ol</a></li>
+                    <li class="first <c:out value='${signup ? "" : "active"}'/>"><a href="#" class="<c:out value='${signup ? "" : "active"}'/>">Giriş Yap</a></li>
+                    <li class="last <c:out value='${signup ? "active" : ""}'/>"><a href="#" class="<c:out value='${signup ? "active" : ""}'/>">Kayıt Ol</a></li>
                 </ul>
             </nav>
         </div>
